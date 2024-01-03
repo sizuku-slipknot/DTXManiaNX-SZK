@@ -19,14 +19,12 @@ namespace DTXMania
 			DTX2WAV
 		}
 
-
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		public CCommandParse()
 		{
 		}
-
 
 		/// <summary>
 		/// DTXManiaNX.exe 引数の分析

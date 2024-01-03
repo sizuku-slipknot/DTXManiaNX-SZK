@@ -14,7 +14,6 @@ namespace DTXMania
 		public List<string> list項目値;
 		public int n現在選択されている項目番号;
 
-
 		// コンストラクタ
 
 		public CItemList()
@@ -46,7 +45,6 @@ namespace DTXMania
 			: this() {
 			this.t初期化(str項目名, eパネル種別, n初期インデックス値, str説明文jp, str説明文en, arg項目リスト);
 		}
-
 
 		// CItemBase 実装
 

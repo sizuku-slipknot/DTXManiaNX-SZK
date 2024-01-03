@@ -71,7 +71,6 @@ namespace DTXMania
             base.bNotActivated = true;
         }
 
-
         // メソッド
         public void tラベル名からステータスパネルを決定する(string strラベル名)
         {

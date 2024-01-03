@@ -6,7 +6,6 @@ using System.IO;
 using System.Diagnostics;
 using System.Web;
 using FDK;
-
 using SlimDXKey = SlimDX.DirectInput.Key;
 
 namespace DTXMania
@@ -412,28 +411,28 @@ namespace DTXMania
 							case (int) EKeyConfigPad.Capture:
 								return this.padCapture;
 
-							case (int)EKeyConfigPad.Search:
+							case (int) EKeyConfigPad.Search:
 								return this.padSearch;
 
-							case (int)EKeyConfigPad.LoopCreate:
+							case (int) EKeyConfigPad.LoopCreate:
 								return this.padLoopCreate;
 
-							case (int)EKeyConfigPad.LoopDelete:
+							case (int) EKeyConfigPad.LoopDelete:
 								return this.padLoopDelete;
 
-							case (int)EKeyConfigPad.SkipForward:
+							case (int) EKeyConfigPad.SkipForward:
 								return this.padSkipForward;
 
-							case (int)EKeyConfigPad.SkipBackward:
+							case (int) EKeyConfigPad.SkipBackward:
 								return this.padSkipBackward;
 
-							case (int)EKeyConfigPad.IncreasePlaySpeed:
+							case (int) EKeyConfigPad.IncreasePlaySpeed:
 								return this.padIncreasePlaySpeed;
 
-							case (int)EKeyConfigPad.DecreasePlaySpeed:
+							case (int) EKeyConfigPad.DecreasePlaySpeed:
 								return this.padDecreasePlaySpeed;
 
-							case (int)EKeyConfigPad.Restart:
+							case (int) EKeyConfigPad.Restart:
 								return this.padRestart;
 						}
 						throw new IndexOutOfRangeException();
@@ -498,35 +497,35 @@ namespace DTXMania
 								this.padCapture = value;
 								return;
 
-							case (int)EKeyConfigPad.Search:
+							case (int) EKeyConfigPad.Search:
 								this.padSearch = value;
 								return;
 
-							case (int)EKeyConfigPad.LoopCreate:
+							case (int) EKeyConfigPad.LoopCreate:
 								this.padLoopCreate = value;
 								return;
 
-							case (int)EKeyConfigPad.LoopDelete:
+							case (int) EKeyConfigPad.LoopDelete:
 								this.padLoopDelete = value;
 								return;
 
-							case (int)EKeyConfigPad.SkipForward:
+							case (int) EKeyConfigPad.SkipForward:
 								this.padSkipForward = value;
 								return;
 
-							case (int)EKeyConfigPad.SkipBackward:
+							case (int) EKeyConfigPad.SkipBackward:
 								this.padSkipBackward = value;
 								return;
 
-							case (int)EKeyConfigPad.IncreasePlaySpeed:
+							case (int) EKeyConfigPad.IncreasePlaySpeed:
 								this.padIncreasePlaySpeed = value;
 								return;
 
-							case (int)EKeyConfigPad.DecreasePlaySpeed:
+							case (int) EKeyConfigPad.DecreasePlaySpeed:
 								this.padDecreasePlaySpeed = value;
 								return;
 
-							case (int)EKeyConfigPad.Restart:
+							case (int) EKeyConfigPad.Restart:
 								this.padRestart = value;
 								return;
 						}
@@ -643,21 +642,30 @@ namespace DTXMania
 #endif
 		public int nBGAlpha;
         public int nMovieAlpha;
+		public int n初期ウィンドウ開始位置X;								// #30675 2013.02.04 ikanick add
+		public int n初期ウィンドウ開始位置Y;
+		public int nウインドウwidth;										// #23510 2010.10.31 yyagi add
+		public int nウインドウheight;										// #23510 2010.10.31 yyagi add
+		public int nSoundDeviceType;										// #24820 2012.12.23 yyagi 出力サウンドデバイス(0=ACM(にしたいが設計がきつそうならDirectShow), 1=ASIO, 2=WASAPI)
+		public int nWASAPIBufferSizeMs;										// #24820 2013.1.15 yyagi WASAPIのバッファサイズ
+		//public int nASIOBufferSizeMs;										// #24820 2012.12.28 yyagi ASIOのバッファサイズ
+		public int nASIODevice;												// #24820 2013.1.17 yyagi ASIOデバイス
+		public int nMasterVolume;
+		public int nInfoType;
+		public int nSkillMode;
+		public int n非フォーカス時スリープms;								// #23568 2010.11.04 ikanick add
+		public int nフレーム毎スリープms;									// #xxxxx 2011.11.27 yyagi add
+		public int nPlaySpeed;
+		public int nPedalLagTime;											// #xxxxx 2013.07.11 kairera0467
 		public bool bAVIEnabled;
 		public bool bBGAEnabled;
 		public bool bBGM音を発声する;
-		public STDGBVALUE<bool> bHidden;
-		public STDGBVALUE<bool> bLeft;
-		public STDGBVALUE<bool> bLight;
 		public bool bLogDTX詳細ログ出力;
 		public bool bLogSongSearch;
 		public bool bLog作成解放ログ出力;
-		public STDGBVALUE<bool> bReverse;
 		public bool bScoreIniを出力する;
 		public bool bSTAGEFAILEDEnabled;
-		public STDGBVALUE<bool> bSudden;
 		public bool bTight;
-		public STDGBVALUE<bool> bGraph有効;     // #24074 2011.01.23 add ikanick
 		public bool bSmallGraph;
 		public bool bWave再生位置自動調整機能有効;
 		public bool bシンバルフリー;
@@ -666,9 +674,8 @@ namespace DTXMania
 		public bool bFillInEnabled;
 		public bool bランダムセレクトで子BOXを検索対象とする;
 		public bool bOutputLogs;
-		public STDGBVALUE<bool> b演奏音を強調する;
 		public bool b演奏情報を表示する;
-        public bool bAutoAddGage; //2012.9.18
+        public bool bAutoAddGage;											// 2012.9.18
 		public bool b歓声を発声する;
 		public bool bVerticalSyncWait;
 		public bool b選曲リストフォントを斜体にする;
@@ -676,83 +683,70 @@ namespace DTXMania
         //public bool bDirectShowMode;
 		public bool bFullScreenMode;
 		public bool bFullScreenExclusive;
-		public int n初期ウィンドウ開始位置X; // #30675 2013.02.04 ikanick add
-	    public int n初期ウィンドウ開始位置Y;
-		public int nウインドウwidth;				// #23510 2010.10.31 yyagi add
-		public int nウインドウheight;				// #23510 2010.10.31 yyagi add
         public bool DisplayBonusEffects;
         public bool bHAZARD;
-        public int nSoundDeviceType; // #24820 2012.12.23 yyagi 出力サウンドデバイス(0=ACM(にしたいが設計がきつそうならDirectShow), 1=ASIO, 2=WASAPI)
-        public int nWASAPIBufferSizeMs; // #24820 2013.1.15 yyagi WASAPIのバッファサイズ
-        //public int nASIOBufferSizeMs; // #24820 2012.12.28 yyagi ASIOのバッファサイズ
-        public int nASIODevice; // #24820 2013.1.17 yyagi ASIOデバイス
 		public bool bEventDrivenWASAPI;
-		public bool bMetronome; // 2023.9.22 henryzx
+		public bool bMetronome;												// 2023.9.22 henryzx
 		public bool bUseOSTimer;
-        public bool bDynamicBassMixerManagement; // #24820
-		public int nMasterVolume;
-
-        public STDGBVALUE<EType> eAttackEffect;
+        public bool bDynamicBassMixerManagement;							// #24820
+		public bool bSaveScoreIfModifiedPlaySpeed;
+		public bool bCLASSIC譜面判別を有効にする;
+		public bool bMutingLP;
+		public bool bSkillModeを自動切換えする;
+		public bool b曲名表示をdefのものにする;
+		public bool bドラムコンボ文字の表示;
+		public STDGBVALUE<int> nLaneDisp;
+		public STDGBVALUE<int> n表示可能な最小コンボ数;
+		public STDGBVALUE<int> nScrollSpeed;
+		public STDGBVALUE<int> nJudgeLine;
+		public STDGBVALUE<int> nShutterInSide;
+		public STDGBVALUE<int> nShutterOutSide;
+		public STDGBVALUE<bool> bHidden;
+		public STDGBVALUE<bool> bLeft;
+		public STDGBVALUE<bool> bLight;
+		public STDGBVALUE<bool> bReverse;
+		public STDGBVALUE<bool> bSudden;
+		public STDGBVALUE<bool> bGraph有効;									// #24074 2011.01.23 add ikanick
+		public STDGBVALUE<bool> b演奏音を強調する;
+		public STDGBVALUE<bool> bDisplayJudge;
+		public STDGBVALUE<bool> bJudgeLineDisp;
+		public STDGBVALUE<bool> bLaneFlush;
+		public STDGBVALUE<bool> bAssignToLBD;
+		public STDGBVALUE<EType> eAttackEffect;
         public STDGBVALUE<EType> eNumOfLanes;
         public STDGBVALUE<EType> eDkdkType;
         public STDGBVALUE<EType> eLaneType;
         public STDGBVALUE<EType> eLBDGraphics;
         public STDGBVALUE<EType> eHHOGraphics;
-        public ERDPosition eRDPosition;
-        public int nInfoType;
-        public int nSkillMode;
+		public STDGBVALUE<EType> JudgementStringPosition;					// 判定文字表示位置
+		public STDGBVALUE<ERandomMode> eRandom;
+		public STDGBVALUE<ERandomMode> eRandomPedal;
 		public Dictionary<int, string> dicJoystick;
+		public CKeyAssign KeyAssign;
+		public ERDPosition eRDPosition;
 		public ECYGroup eCYGroup;
 		public EDarkMode eDark;
 		public EFTGroup eFTGroup;
 		public EHHGroup eHHGroup;
-		public EBDGroup eBDGroup;					// #27029 2012.1.4 from add
+		public EBDGroup eBDGroup;											// #27029 2012.1.4 from add
 		public EPlaybackPriority eHitSoundPriorityCY;
 		public EPlaybackPriority eHitSoundPriorityFT;
 		public EPlaybackPriority eHitSoundPriorityHH;
         public EPlaybackPriority eHitSoundPriorityLP;
-        public STDGBVALUE<ERandomMode> eRandom;
-        public STDGBVALUE<ERandomMode> eRandomPedal;
-        public STDGBVALUE<bool> bAssignToLBD;
 		public EDamageLevel eDamageLevel;
-        public CKeyAssign KeyAssign;
-
-        public STDGBVALUE<int> nLaneDisp;
-		public STDGBVALUE<bool> bDisplayJudge;
-		public STDGBVALUE<bool> bJudgeLineDisp;
-        public STDGBVALUE<bool> bLaneFlush;
-
-        public int nPedalLagTime;   //#xxxxx 2013.07.11 kairera0467
-
-		public int n非フォーカス時スリープms;       // #23568 2010.11.04 ikanick add
-		public int nフレーム毎スリープms;			// #xxxxx 2011.11.27 yyagi add
-		public int nPlaySpeed;
-		public bool bSaveScoreIfModifiedPlaySpeed;
+		public EDrumComboTextDisplayPosition ドラムコンボ文字の表示位置;
+		public int nMovieMode;
 		public int n曲が選択されてからプレビュー音が鳴るまでのウェイトms;
 		public int n曲が選択されてからプレビュー画像が表示開始されるまでのウェイトms;
-		public int n自動再生音量;  // nAutoVolume
-		public int n手動再生音量;  // nChipVolume
+		public int n自動再生音量;											// nAutoVolume
+		public int n手動再生音量;											// nChipVolume
 		public int n選曲リストフォントのサイズdot;
         public int[] nNameColor;
-		public STDGBVALUE<int> n表示可能な最小コンボ数;
-		public STDGBVALUE<int> nScrollSpeed;
 		public string strDTXManiaのバージョン;
 		public string str曲データ検索パス;
 		public string str選曲リストフォント;
-        public string[] strCardName; //2015.12.3 kaiera0467 DrumとGuitarとBassで名前を別々にするため、string[3]に変更。
-        public string[] strGroupName;
-		public EDrumComboTextDisplayPosition ドラムコンボ文字の表示位置;
-        public bool bドラムコンボ文字の表示;
-        public STDGBVALUE<EType> JudgementStringPosition;  // 判定文字表示位置
-		public int nMovieMode;
-        public STDGBVALUE<int> nJudgeLine;
-        public STDGBVALUE<int> nShutterInSide;
-        public STDGBVALUE<int> nShutterOutSide;
-        public bool bCLASSIC譜面判別を有効にする;
-        public bool bMutingLP;
-        public bool bSkillModeを自動切換えする;
-
-        public bool b曲名表示をdefのものにする;
+        public string[] strCardName;                                        //2015.12.3 kaiera0467 DrumとGuitarとBassで名前を別々にするため、string[3]に変更。
+		public string[] strGroupName;
 
         #region [ XGオプション ]
         public EType eNamePlate;
@@ -783,29 +777,30 @@ namespace DTXMania
         public int nWailingFireInterval;
         public int nWailingFireWidgh;
         public int nWailingFireHeight;
-        public STDGBVALUE<int> nWailingFireX;
         public int nWailingFireY;
-        #endregion
+		public STDGBVALUE<int> nWailingFireX;
+		#endregion
 
-        public STDGBVALUE<int> nInputAdjustTimeMs;	// #23580 2011.1.3 yyagi タイミングアジャスト機能
-        public int nCommonBGMAdjustMs;              // #36372 2016.06.19 kairera0467 全曲共通のBGMオフセット
-        public STDGBVALUE<int> nJudgeLinePosOffset; // #31602 2013.6.23 yyagi 判定ライン表示位置のオフセット
-        public int nShowLagType;					// #25370 2011.6.5 yyagi ズレ時間表示機能
+		
+		public int nCommonBGMAdjustMs;										// #36372 2016.06.19 kairera0467 全曲共通のBGMオフセット
+		public int nShowLagType;											// #25370 2011.6.5 yyagi ズレ時間表示機能
         public int nShowLagTypeColor;
-		public bool bShowLagHitCount;				// fisyher New Config to enable hit count display or not
 		public int nShowPlaySpeed;
-        public STDGBVALUE<int> nHidSud;
-        public bool bIsAutoResultCapture;			// #25399 2011.6.9 yyagi リザルト画像自動保存機能のON/OFF制御
-		public int nPoliphonicSounds;				// #28228 2012.5.1 yyagi レーン毎の最大同時発音数
-		public bool bバッファ入力を行う;
-		public bool bIsEnabledSystemMenu;			// #28200 2012.5.1 yyagi System Menuの使用可否切替
-		public string strSystemSkinSubfolderFullName;	// #28195 2012.5.2 yyagi Skin切替用 System/以下のサブフォルダ名
-		public bool bUseBoxDefSkin;                     // #28195 2012.5.6 yyagi Skin切替用 box.defによるスキン変更機能を使用するか否か
+		public int nPoliphonicSounds;										// #28228 2012.5.1 yyagi レーン毎の最大同時発音数
 		public int nSkipTimeMs;
+		public bool bShowLagHitCount;										// fisyher New Config to enable hit count display or not
+		public bool bIsAutoResultCapture;									// #25399 2011.6.9 yyagi リザルト画像自動保存機能のON/OFF制御
+		public bool bバッファ入力を行う;
+		public bool bIsEnabledSystemMenu;									// #28200 2012.5.1 yyagi System Menuの使用可否切替
+		public bool bUseBoxDefSkin;											// #28195 2012.5.6 yyagi Skin切替用 box.defによるスキン変更機能を使用するか否か
+		public string strSystemSkinSubfolderFullName;						// #28195 2012.5.2 yyagi Skin切替用 System/以下のサブフォルダ名
+		public STDGBVALUE<int> nInputAdjustTimeMs;							// #23580 2011.1.3 yyagi タイミングアジャスト機能
+		public STDGBVALUE<int> nJudgeLinePosOffset;							// #31602 2013.6.23 yyagi 判定ライン表示位置のオフセット
+		public STDGBVALUE<int> nHidSud;
 
-        //つまみ食い
-        public STDGBVALUE<EAutoGhostData> eAutoGhost;               // #35411 2015.8.18 chnmr0 プレー時使用ゴーストデータ種別
-        public STDGBVALUE<ETargetGhostData> eTargetGhost;               // #35411 2015.8.18 chnmr0 ゴーストデータ再生方法
+		//つまみ食い
+		public STDGBVALUE<EAutoGhostData> eAutoGhost;						// #35411 2015.8.18 chnmr0 プレー時使用ゴーストデータ種別
+        public STDGBVALUE<ETargetGhostData> eTargetGhost;					// #35411 2015.8.18 chnmr0 ゴーストデータ再生方法
 
         public bool bConfigIniがないかDTXManiaのバージョンが異なる
 		{
@@ -1200,7 +1195,6 @@ namespace DTXMania
                 CDTXMania.ConfigIni.bAutoPlay[i + (int)ELane.BsR] = CDTXMania.ConfigIni.bAutoPlay[i + (int)ELane.GtR];
                 CDTXMania.ConfigIni.bAutoPlay[i + (int)ELane.GtR] = b;
             }
-
             CDTXMania.ConfigIni.bIsSwappedGuitarBass_AutoFlagsAreSwapped = !CDTXMania.ConfigIni.bIsSwappedGuitarBass_AutoFlagsAreSwapped;
         }
 

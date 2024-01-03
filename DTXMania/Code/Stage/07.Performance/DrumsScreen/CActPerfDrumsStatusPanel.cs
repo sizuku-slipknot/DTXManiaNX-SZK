@@ -6,7 +6,6 @@ using System.Drawing;
 using System.IO;
 using SharpDX;
 using FDK;
-
 using Point = System.Drawing.Point;
 using Color = System.Drawing.Color;
 using Rectangle = System.Drawing.Rectangle;
@@ -15,7 +14,6 @@ namespace DTXMania
 {
     internal class CActPerfDrumsStatusPanel : CActPerfCommonStatusPanel
     {
-
         public CActPerfDrumsStatusPanel()
         {
             this.txパネル文字 = new CTexture[2];
@@ -252,7 +250,6 @@ namespace DTXMania
                     case 9:
                         clNameColor = Color.Gold;
                         break;
-
                     case 10:
                         clNameColor = Color.White;
                         break;
@@ -325,7 +322,6 @@ namespace DTXMania
                 base.OnManagedReleaseResources();
             }
         }
-
         public override int OnUpdateAndDraw()
         {
             if (!base.bNotActivated)
@@ -444,9 +440,7 @@ namespace DTXMania
                 this.tレベル数字描画((bCLASSIC == true ? 26 : 18) + this.n本体X[i], 290 + this.n本体Y, str);
             }
             return 0;
-
         }
-
 
         // Other
 

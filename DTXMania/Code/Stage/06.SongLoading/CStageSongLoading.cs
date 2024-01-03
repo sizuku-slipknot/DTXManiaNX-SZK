@@ -160,20 +160,19 @@ namespace DTXMania
         }
 
         // CStage 実装
-
-        public void tDetermineStatusLabelFromLabelName( string strラベル名 )
+        public void tDetermineStatusLabelFromLabelName(string strラベル名)
         {
-            if( string.IsNullOrEmpty( strラベル名 ) )
+            if (string.IsNullOrEmpty(strラベル名))
             {
                 this.nIndex = 0;
             }
             else
             {
                 STATUSPANEL[] array = this.stPanelMap;
-                for( int i = 0; i < array.Length; i++ )
+                for (int i = 0; i < array.Length; i++)
                 {
-                    STATUSPANEL sTATUSPANEL = array[ i ];
-                    if( strラベル名.Equals( sTATUSPANEL.label, StringComparison.CurrentCultureIgnoreCase ) )
+                    STATUSPANEL sTATUSPANEL = array[i];
+                    if (strラベル名.Equals(sTATUSPANEL.label, StringComparison.CurrentCultureIgnoreCase))
                     {
                         this.nIndex = sTATUSPANEL.status;
                         CDTXMania.nSongDifficulty = sTATUSPANEL.status;
@@ -186,7 +185,7 @@ namespace DTXMania
 
         public override void OnActivate()
         {
-            Trace.TraceInformation( "曲読み込みステージを活性化します。" );
+            Trace.TraceInformation("曲読み込みステージを活性化します。");
             Trace.Indent();
             try
             {
@@ -196,49 +195,49 @@ namespace DTXMania
 
                 this.nBGMPlayStartTime = -1L;
                 this.nBGMTotalPlayTimeMs = 0;
-                if( this.sdLoadingSound != null )
+                if (this.sdLoadingSound != null)
                 {
-                    CDTXMania.SoundManager.tDiscard( this.sdLoadingSound );
+                    CDTXMania.SoundManager.tDiscard(this.sdLoadingSound);
                     this.sdLoadingSound = null;
                 }
 
-                string strDTXFilePath = ( CDTXMania.bCompactMode ) ?
+                string strDTXFilePath = (CDTXMania.bCompactMode) ?
                     CDTXMania.strCompactModeFile : CDTXMania.stageSongSelection.rChosenScore.FileInformation.AbsoluteFilePath;
 
-                CDTX cdtx = new CDTX( strDTXFilePath, true );
+                CDTX cdtx = new CDTX(strDTXFilePath, true);
 
-                if( !CDTXMania.bCompactMode && CDTXMania.ConfigIni.b曲名表示をdefのものにする )
+                if (!CDTXMania.bCompactMode && CDTXMania.ConfigIni.b曲名表示をdefのものにする)
                     this.strSongTitle = CDTXMania.stageSongSelection.rConfirmedSong.strタイトル;
                 else
                     this.strSongTitle = cdtx.TITLE;
 
                 this.strArtistName = cdtx.ARTIST;
-                if( ( ( cdtx.SOUND_NOWLOADING != null ) && ( cdtx.SOUND_NOWLOADING.Length > 0 ) ) && File.Exists( cdtx.strFolderName + cdtx.SOUND_NOWLOADING )
+                if (((cdtx.SOUND_NOWLOADING != null) && (cdtx.SOUND_NOWLOADING.Length > 0)) && File.Exists(cdtx.strFolderName + cdtx.SOUND_NOWLOADING)
                     && (!CDTXMania.DTXVmode.Enabled)
                     && (!CDTXMania.DTX2WAVmode.Enabled))
                 {
                     string strNowLoadingサウンドファイルパス = cdtx.strFolderName + cdtx.SOUND_NOWLOADING;
                     try
                     {
-                        this.sdLoadingSound = CDTXMania.SoundManager.tGenerateSound( strNowLoadingサウンドファイルパス );
+                        this.sdLoadingSound = CDTXMania.SoundManager.tGenerateSound(strNowLoadingサウンドファイルパス);
                     }
                     catch
                     {
-                        Trace.TraceError( "#SOUND_NOWLOADING に指定されたサウンドファイルの読み込みに失敗しました。({0})", strNowLoadingサウンドファイルパス );
+                        Trace.TraceError("#SOUND_NOWLOADING に指定されたサウンドファイルの読み込みに失敗しました。({0})", strNowLoadingサウンドファイルパス);
                     }
                 }
                 // 2015.12.26 kairera0467 本家DTXからつまみ食い。
                 // #35411 2015.08.19 chnmr0 add
                 // Read ghost data by config
                 // It does not exist a ghost file for 'perfect' actually
-                string [] inst = {"dr", "gt", "bs"};
-				if( CDTXMania.ConfigIni.bIsSwappedGuitarBass )
-				{
-					inst[1] = "bs";
-					inst[2] = "gt";
-				}
+                string[] inst = { "dr", "gt", "bs" };
+                if (CDTXMania.ConfigIni.bIsSwappedGuitarBass)
+                {
+                    inst[1] = "bs";
+                    inst[2] = "gt";
+                }
 
-                for(int instIndex = 0; instIndex < inst.Length; ++instIndex)
+                for (int instIndex = 0; instIndex < inst.Length; ++instIndex)
                 {
                     //break; //2016.01.03 kairera0467 以下封印。
                     bool readAutoGhostCond = false;
@@ -251,32 +250,32 @@ namespace DTXMania
                     CDTXMania.listTargetGhostScoreData[instIndex] = null;
                     this.nCurrentInst = instIndex;
 
-                    if ( readAutoGhostCond )
+                    if (readAutoGhostCond)
                     {
                         string[] prefix = { "perfect", "lastplay", "hiskill", "hiscore", "online" };
-                        int indPrefix = (int)CDTXMania.ConfigIni.eAutoGhost[ instIndex ];
-                        string filename = cdtx.strFolderName + "\\" + cdtx.strファイル名 + "." + prefix[ indPrefix ] + "." + inst[ instIndex ] + ".ghost";
-                        if( File.Exists( filename ) )
+                        int indPrefix = (int)CDTXMania.ConfigIni.eAutoGhost[instIndex];
+                        string filename = cdtx.strFolderName + "\\" + cdtx.strファイル名 + "." + prefix[indPrefix] + "." + inst[instIndex] + ".ghost";
+                        if (File.Exists(filename))
                         {
-                            CDTXMania.listAutoGhostLag[ instIndex ] = new List<int>();
-                            CDTXMania.listTargetGhostScoreData[ instIndex ] = new CScoreIni.CPerformanceEntry();
-                            ReadGhost(filename, CDTXMania.listAutoGhostLag[ instIndex ]);
+                            CDTXMania.listAutoGhostLag[instIndex] = new List<int>();
+                            CDTXMania.listTargetGhostScoreData[instIndex] = new CScoreIni.CPerformanceEntry();
+                            ReadGhost(filename, CDTXMania.listAutoGhostLag[instIndex]);
                         }
                     }
 
-                    if( CDTXMania.ConfigIni.eTargetGhost[instIndex] != ETargetGhostData.NONE )
+                    if (CDTXMania.ConfigIni.eTargetGhost[instIndex] != ETargetGhostData.NONE)
                     {
                         string[] prefix = { "none", "perfect", "lastplay", "hiskill", "hiscore", "online" };
-                        int indPrefix = (int)CDTXMania.ConfigIni.eTargetGhost[ instIndex ];
-                        string filename = cdtx.strFolderName + "\\" + cdtx.strファイル名 + "." + prefix[ indPrefix ] + "." + inst[ instIndex ] + ".ghost";
-                        if( File.Exists( filename ) )
+                        int indPrefix = (int)CDTXMania.ConfigIni.eTargetGhost[instIndex];
+                        string filename = cdtx.strFolderName + "\\" + cdtx.strファイル名 + "." + prefix[indPrefix] + "." + inst[instIndex] + ".ghost";
+                        if (File.Exists(filename))
                         {
                             CDTXMania.listTargetGhsotLag[instIndex] = new List<int>();
-                            CDTXMania.listTargetGhostScoreData[ instIndex ] = new CScoreIni.CPerformanceEntry();
+                            CDTXMania.listTargetGhostScoreData[instIndex] = new CScoreIni.CPerformanceEntry();
                             this.stGhostLag[instIndex] = new List<STGhostLag>();
                             ReadGhost(filename, CDTXMania.listTargetGhsotLag[instIndex]);
                         }
-                        else if( CDTXMania.ConfigIni.eTargetGhost[instIndex] == ETargetGhostData.PERFECT )
+                        else if (CDTXMania.ConfigIni.eTargetGhost[instIndex] == ETargetGhostData.PERFECT)
                         {
                             // All perfect
                             CDTXMania.listTargetGhsotLag[instIndex] = new List<int>();
@@ -286,12 +285,12 @@ namespace DTXMania
 
                 cdtx.OnDeactivate();
                 base.OnActivate();
-                if( !CDTXMania.bCompactMode && !CDTXMania.DTXVmode.Enabled && !CDTXMania.DTX2WAVmode.Enabled)
-                    this.tDetermineStatusLabelFromLabelName( CDTXMania.stageSongSelection.rConfirmedSong.arDifficultyLabel[ CDTXMania.stageSongSelection.nConfirmedSongDifficulty ] );
+                if (!CDTXMania.bCompactMode && !CDTXMania.DTXVmode.Enabled && !CDTXMania.DTX2WAVmode.Enabled)
+                    this.tDetermineStatusLabelFromLabelName(CDTXMania.stageSongSelection.rConfirmedSong.arDifficultyLabel[CDTXMania.stageSongSelection.nConfirmedSongDifficulty]);
             }
             finally
             {
-                Trace.TraceInformation( "曲読み込みステージの活性化を完了しました。" );
+                Trace.TraceInformation("曲読み込みステージの活性化を完了しました。");
                 Trace.Unindent();
             }
         }
@@ -313,10 +312,11 @@ namespace DTXMania
         {
             if (!base.bNotActivated)
             {
-                this.txBackground = CDTXMania.tGenerateTexture( CSkin.Path( @"Graphics\6_background.png" ) );
-                this.txBackground2 = CDTXMania.tGenerateTexture(CSkin.Path( @"Graphics\6_backgroundGF.png") );
-                this.txLevel = CDTXMania.tGenerateTexture( CSkin.Path( @"Graphics\6_LevelNumber.png" ) );
-                this.txDifficultyPanel = CDTXMania.tGenerateTexture( CSkin.Path( @"Graphics\6_Difficulty.png" ) );
+                this.txBackground = CDTXMania.tGenerateTexture(CSkin.Path(@"Graphics\background.png"));
+                this.txBackcaution = CDTXMania.tGenerateTexture(CSkin.Path(@"Graphics\background_d_caution.png"));
+                this.txBackcaution2 = CDTXMania.tGenerateTexture(CSkin.Path(@"Graphics\background_g_caution.png"));
+                this.txLevel = CDTXMania.tGenerateTexture(CSkin.Path(@"Graphics\6_LevelNumber.png"));
+                this.txDifficultyPanel = CDTXMania.tGenerateTexture(CSkin.Path(@"Graphics\6_Difficulty.png"));
                 this.txPartPanel = CDTXMania.tGenerateTexture(CSkin.Path(@"Graphics\6_Part.png"));
 
                 #region[ 曲名、アーティスト名テクスチャの生成 ]
@@ -329,8 +329,8 @@ namespace DTXMania
                         Bitmap bmpSongName = new Bitmap(1, 1);
                         bmpSongName = this.pfタイトル.DrawPrivateFont(this.strSongTitle, CPrivateFont.DrawMode.Edge, Color.Black, Color.Black, this.clGITADORAgradationTopColor, this.clGITADORAgradationBottomColor, true);
                         this.txTitle = CDTXMania.tGenerateTexture(bmpSongName, false);
-                        CDTXMania.t安全にDisposeする( ref bmpSongName );
-                        CDTXMania.t安全にDisposeする( ref this.pfタイトル );
+                        CDTXMania.t安全にDisposeする(ref bmpSongName);
+                        CDTXMania.t安全にDisposeする(ref this.pfタイトル);
                     }
                     else
                     {
@@ -343,8 +343,8 @@ namespace DTXMania
                         Bitmap bmpArtistName = new Bitmap(1, 1);
                         bmpArtistName = pfアーティスト.DrawPrivateFont(this.strArtistName, CPrivateFont.DrawMode.Edge, Color.Black, Color.Black, this.clGITADORAgradationTopColor, this.clGITADORAgradationBottomColor, true);
                         this.txArtist = CDTXMania.tGenerateTexture(bmpArtistName, false);
-                        CDTXMania.t安全にDisposeする( ref bmpArtistName );
-                        CDTXMania.t安全にDisposeする( ref this.pfアーティスト );
+                        CDTXMania.t安全にDisposeする(ref bmpArtistName);
+                        CDTXMania.t安全にDisposeする(ref this.pfアーティスト);
                     }
                     else
                     {
@@ -352,7 +352,7 @@ namespace DTXMania
                     }
                     #endregion
                 }
-                catch( CTextureCreateFailedException )
+                catch (CTextureCreateFailedException)
                 {
                     Trace.TraceError("テクスチャの生成に失敗しました。({0})", new object[] { this.strSTAGEFILE });
                     this.txTitle = null;
@@ -364,18 +364,19 @@ namespace DTXMania
         }
         public override void OnManagedReleaseResources()
         {
-            if( !base.bNotActivated )
+            if (!base.bNotActivated)
             {
                 //テクスチャ11枚
                 //2018.03.15 kairera0467 PrivateFontが抜けていた＆フォント生成直後に解放するようにしてみる
-                CDTXMania.tReleaseTexture( ref this.txBackground );
-                CDTXMania.tReleaseTexture( ref this.txBackground2);
-                CDTXMania.tReleaseTexture( ref this.txJacket );
-                CDTXMania.tReleaseTexture( ref this.txTitle );
-                CDTXMania.tReleaseTexture( ref this.txArtist );
-                CDTXMania.tReleaseTexture( ref this.txDifficultyPanel );
-                CDTXMania.tReleaseTexture( ref this.txPartPanel );
-                CDTXMania.tReleaseTexture( ref this.txLevel );
+                CDTXMania.tReleaseTexture(ref this.txBackground);
+                CDTXMania.tReleaseTexture(ref this.txBackcaution);
+                CDTXMania.tReleaseTexture(ref this.txBackcaution2);
+                CDTXMania.tReleaseTexture(ref this.txJacket);
+                CDTXMania.tReleaseTexture(ref this.txTitle);
+                CDTXMania.tReleaseTexture(ref this.txArtist);
+                CDTXMania.tReleaseTexture(ref this.txDifficultyPanel);
+                CDTXMania.tReleaseTexture(ref this.txPartPanel);
+                CDTXMania.tReleaseTexture(ref this.txLevel);
                 base.OnManagedReleaseResources();
             }
         }
@@ -383,7 +384,7 @@ namespace DTXMania
         {
             string str;
 
-            if( base.bNotActivated )
+            if (base.bNotActivated)
                 return 0;
 
             #region [ 初めての進行描画 ]
@@ -403,7 +404,7 @@ namespace DTXMania
                 }
                 else if (!CDTXMania.DTXVmode.Enabled && !CDTXMania.DTX2WAVmode.Enabled)
                 {
-                    
+
                     CDTXMania.Skin.soundNowLoading.tPlay();
                     this.nBGMPlayStartTime = CSoundManager.rcPerformanceTimer.nCurrentTime;
                     this.nBGMTotalPlayTimeMs = CDTXMania.Skin.soundNowLoading.nLength_CurrentSound;
@@ -433,11 +434,17 @@ namespace DTXMania
 
             #region [ 背景、レベル、タイトル表示 ]
             //-----------------------------
-            if( this.txBackground != null )
-                this.txBackground.tDraw2D( CDTXMania.app.Device, 0, 0 );
+            if (this.txBackground != null)
+            {
+                this.txBackground.tDraw2D(CDTXMania.app.Device, 0, 0);
+                this.txBackcaution.tDraw2D(CDTXMania.app.Device, 0, 508);
+            }
 
             if (CDTXMania.ConfigIni.bGuitarEnabled)
-                this.txBackground2.tDraw2D(CDTXMania.app.Device, 0, 0);
+            {
+                this.txBackground.tDraw2D(CDTXMania.app.Device, 0, 0);
+                this.txBackcaution2.tDraw2D(CDTXMania.app.Device, 0, 508);
+            }
 
             string strDTXFilePath = (CDTXMania.bCompactMode) ?
             CDTXMania.strCompactModeFile : CDTXMania.stageSongSelection.rChosenScore.FileInformation.AbsoluteFilePath;
@@ -446,26 +453,26 @@ namespace DTXMania
             string path = cdtx.strFolderName + cdtx.PREIMAGE;
             try
             {
-                if( this.txJacket == null ) // 2019.04.26 kairera0467
+                if (this.txJacket == null) // 2019.04.26 kairera0467
                 {
-                    if( !File.Exists( path ) )
+                    if (!File.Exists(path))
                     {
-                        this.txJacket = CDTXMania.tGenerateTexture( CSkin.Path( @"Graphics\5_preimage default.png" ) );
+                        this.txJacket = CDTXMania.tGenerateTexture(CSkin.Path(@"Graphics\5_preimage default.png"));
                     }
                     else
                     {
-                        this.txJacket = CDTXMania.tGenerateTexture( path );
+                        this.txJacket = CDTXMania.tGenerateTexture(path);
                     }
                 }
             }
-            catch( Exception ex )
+            catch (Exception ex)
             {
-                Trace.TraceError( ex.StackTrace );
+                Trace.TraceError(ex.StackTrace);
             }
 
             int y = 184;
 
-            if( this.txJacket != null )
+            if (this.txJacket != null)
             {
                 this.txJacket.vcScaleRatio.X = 384.0f / this.txJacket.szImageSize.Width;
                 this.txJacket.vcScaleRatio.Y = 384.0f / this.txJacket.szImageSize.Height;
@@ -532,7 +539,7 @@ namespace DTXMania
                             this.tDrawStringLarge(639 + k, 152, string.Format("{0:00}", DTXLevelDeci));*/
                         }
                         if (this.txPartPanel != null)
-                            this.txPartPanel.tDraw2D(CDTXMania.app.Device, 523 + k, 79, new Rectangle(0, j * 175, 292, 175));
+                            this.txPartPanel.tDraw2D(CDTXMania.app.Device, 523 + k, 79, new Rectangle(0, j * 40, 104, 40));
 
                         //this.txJacket.Dispose();
                         if (!CDTXMania.bCompactMode && !CDTXMania.DTXVmode.Enabled && !CDTXMania.DTX2WAVmode.Enabled)
@@ -549,14 +556,14 @@ namespace DTXMania
                     if (this.txPartPanel != null && CDTXMania.ConfigIni.bDrumsEnabled)
                     {
                         if (CDTXMania.DTX.bチップがある.Drums)
-                            this.txPartPanel.tDraw2D(CDTXMania.app.Device, 523, 79, new Rectangle(0, 0, 292, 175));
+                            this.txPartPanel.tDraw2D(CDTXMania.app.Device, 523, 79, new Rectangle(0, 0, 104, 40));
                     }
 
                     if (this.txPartPanel != null && CDTXMania.ConfigIni.bGuitarEnabled)
                     {
                         if (CDTXMania.DTX.bチップがある.Guitar)
                         {
-                            this.txPartPanel.tDraw2D(CDTXMania.app.Device, 523, 79, new Rectangle(175, 0, 292, 175));
+                            this.txPartPanel.tDraw2D(CDTXMania.app.Device, 523, 79, new Rectangle(40, 0, 104, 40));
                         }
 
                         if (this.txPartPanel != null && CDTXMania.ConfigIni.bGuitarEnabled)
@@ -564,7 +571,7 @@ namespace DTXMania
                             if (CDTXMania.DTX.bチップがある.Bass)
                             {
                                 if (CDTXMania.ConfigIni.bIsSwappedGuitarBass)
-                                    this.txPartPanel.tDraw2D(CDTXMania.app.Device, 523, 79, new Rectangle(350, 0, 292, 175));
+                                    this.txPartPanel.tDraw2D(CDTXMania.app.Device, 523, 79, new Rectangle(80, 0, 140, 40));
                             }
                             if (this.txDifficultyPanel != null)
                                 this.txDifficultyPanel.tDraw2D(CDTXMania.app.Device, 523, 79, new Rectangle(0, this.nIndex * 175, 292, 175));
@@ -572,7 +579,7 @@ namespace DTXMania
                     }
                 }
             }
-            
+
             //-----------------------------
             #endregion
 
@@ -607,7 +614,7 @@ namespace DTXMania
                         Trace.TraceInformation("FILE: {0}", CDTXMania.DTX.strファイル名の絶対パス);
                         Trace.TraceInformation("---------------------------");
 
-                       // #35411 2015.08.19 chnmr0 add ゴースト機能のためList chip 読み込み後楽器パート出現順インデックスを割り振る
+                        // #35411 2015.08.19 chnmr0 add ゴースト機能のためList chip 読み込み後楽器パート出現順インデックスを割り振る
                         int[] curCount = new int[(int)EInstrumentPart.UNKNOWN];
                         for (int i = 0; i < curCount.Length; ++i)
                         {
@@ -618,43 +625,43 @@ namespace DTXMania
                             if (chip.eInstrumentPart != EInstrumentPart.UNKNOWN)
                             {
                                 chip.n楽器パートでの出現順 = curCount[(int)chip.eInstrumentPart]++;
-                                if( CDTXMania.listTargetGhsotLag[ (int)chip.eInstrumentPart ] != null )
+                                if (CDTXMania.listTargetGhsotLag[(int)chip.eInstrumentPart] != null)
                                 {
                                     var lag = new STGhostLag();
                                     lag.index = chip.n楽器パートでの出現順;
-                                    lag.nJudgeTime = chip.nPlaybackTimeMs + CDTXMania.listTargetGhsotLag[ (int)chip.eInstrumentPart ][ chip.n楽器パートでの出現順 ];
-                                    lag.nLagTime = CDTXMania.listTargetGhsotLag[ (int)chip.eInstrumentPart ][ chip.n楽器パートでの出現順 ];
+                                    lag.nJudgeTime = chip.nPlaybackTimeMs + CDTXMania.listTargetGhsotLag[(int)chip.eInstrumentPart][chip.n楽器パートでの出現順];
+                                    lag.nLagTime = CDTXMania.listTargetGhsotLag[(int)chip.eInstrumentPart][chip.n楽器パートでの出現順];
 
-                                    this.stGhostLag[ (int)chip.eInstrumentPart ].Add( lag );
+                                    this.stGhostLag[(int)chip.eInstrumentPart].Add(lag);
                                 }
                             }
                         }
-                        
-                        string [] inst = {"dr", "gt", "bs"};
-        				if( CDTXMania.ConfigIni.bIsSwappedGuitarBass )
-				        {
-		        			inst[1] = "bs";
-        					inst[2] = "gt";
-				        }
+
+                        string[] inst = { "dr", "gt", "bs" };
+                        if (CDTXMania.ConfigIni.bIsSwappedGuitarBass)
+                        {
+                            inst[1] = "bs";
+                            inst[2] = "gt";
+                        }
                         //演奏記録をゴーストから逆生成
-                        for( int i = 0; i < 3; i++ )
+                        for (int i = 0; i < 3; i++)
                         {
                             int nNowCombo = 0;
                             int nMaxCombo = 0;
 
                             //2016.06.18 kairera0467 「.ghost.score」ファイルが無かった場合ghostファイルから逆算を行う形に変更。
                             string[] prefix = { "none", "perfect", "lastplay", "hiskill", "hiscore", "online" };
-                            int indPrefix = (int)CDTXMania.ConfigIni.eTargetGhost[ i ];
-                            string filename = cdtx.strFolderName + "\\" + cdtx.strファイル名 + "." + prefix[ indPrefix ] + "." + inst[ i ] + ".ghost";
+                            int indPrefix = (int)CDTXMania.ConfigIni.eTargetGhost[i];
+                            string filename = cdtx.strFolderName + "\\" + cdtx.strファイル名 + "." + prefix[indPrefix] + "." + inst[i] + ".ghost";
 
-                            if( this.stGhostLag[ i ] == null || File.Exists( filename + ".score" ) )
+                            if (this.stGhostLag[i] == null || File.Exists(filename + ".score"))
                                 continue;
-                            CDTXMania.listTargetGhostScoreData[ i ] = new CScoreIni.CPerformanceEntry();
+                            CDTXMania.listTargetGhostScoreData[i] = new CScoreIni.CPerformanceEntry();
 
-                            for( int n = 0; n < this.stGhostLag[ i ].Count; n++ )
+                            for (int n = 0; n < this.stGhostLag[i].Count; n++)
                             {
                                 int ghostLag = 128;
-                                ghostLag = this.stGhostLag[ i ][ n ].nLagTime;
+                                ghostLag = this.stGhostLag[i][n].nLagTime;
                                 // 上位８ビットが１ならコンボが途切れている（ギターBAD空打ちでコンボ数を再現するための措置）
                                 if (ghostLag > 255)
                                 {
@@ -662,41 +669,41 @@ namespace DTXMania
                                 }
                                 ghostLag = (ghostLag & 255) - 128;
 
-                                if( ghostLag <= 127 )
+                                if (ghostLag <= 127)
                                 {
-                                    EJudgement eJudge = this.e指定時刻からChipのJUDGEを返す( ghostLag, 0, (EInstrumentPart)i );
+                                    EJudgement eJudge = this.e指定時刻からChipのJUDGEを返す(ghostLag, 0, (EInstrumentPart)i);
 
-                                    switch( eJudge )
+                                    switch (eJudge)
                                     {
                                         case EJudgement.Perfect:
-                                            CDTXMania.listTargetGhostScoreData[ i ].nPerfectCount++;
+                                            CDTXMania.listTargetGhostScoreData[i].nPerfectCount++;
                                             break;
                                         case EJudgement.Great:
-                                            CDTXMania.listTargetGhostScoreData[ i ].nGreatCount++;
+                                            CDTXMania.listTargetGhostScoreData[i].nGreatCount++;
                                             break;
                                         case EJudgement.Good:
-                                            CDTXMania.listTargetGhostScoreData[ i ].nGoodCount++;
+                                            CDTXMania.listTargetGhostScoreData[i].nGoodCount++;
                                             break;
                                         case EJudgement.Poor:
-                                            CDTXMania.listTargetGhostScoreData[ i ].nPoorCount++;
+                                            CDTXMania.listTargetGhostScoreData[i].nPoorCount++;
                                             break;
                                         case EJudgement.Miss:
                                         case EJudgement.Bad:
-                                            CDTXMania.listTargetGhostScoreData[ i ].nMissCount++;
+                                            CDTXMania.listTargetGhostScoreData[i].nMissCount++;
                                             break;
                                     }
-                                    switch( eJudge )
+                                    switch (eJudge)
                                     {
                                         case EJudgement.Perfect:
                                         case EJudgement.Great:
                                         case EJudgement.Good:
                                             nNowCombo++;
-                                            CDTXMania.listTargetGhostScoreData[ i ].nMaxCombo = Math.Max( nNowCombo, CDTXMania.listTargetGhostScoreData[ i ].nMaxCombo );
+                                            CDTXMania.listTargetGhostScoreData[i].nMaxCombo = Math.Max(nNowCombo, CDTXMania.listTargetGhostScoreData[i].nMaxCombo);
                                             break;
                                         case EJudgement.Poor:
                                         case EJudgement.Miss:
                                         case EJudgement.Bad:
-                                            CDTXMania.listTargetGhostScoreData[ i ].nMaxCombo = Math.Max( nNowCombo, CDTXMania.listTargetGhostScoreData[ i ].nMaxCombo );
+                                            CDTXMania.listTargetGhostScoreData[i].nMaxCombo = Math.Max(nNowCombo, CDTXMania.listTargetGhostScoreData[i].nMaxCombo);
                                             nNowCombo = 0;
                                             break;
                                     }
@@ -705,15 +712,15 @@ namespace DTXMania
                             }
                             //CDTXMania.listTargetGhostScoreData[ i ].nMaxCombo = nMaxCombo;
                             int nTotal = CDTXMania.DTX.nVisibleChipsCount.Drums;
-                            if( i == 1 ) nTotal = CDTXMania.DTX.nVisibleChipsCount.Guitar;
-                            else if( i == 2 ) nTotal = CDTXMania.DTX.nVisibleChipsCount.Bass;
-                            if( CDTXMania.ConfigIni.nSkillMode == 0 )
+                            if (i == 1) nTotal = CDTXMania.DTX.nVisibleChipsCount.Guitar;
+                            else if (i == 2) nTotal = CDTXMania.DTX.nVisibleChipsCount.Bass;
+                            if (CDTXMania.ConfigIni.nSkillMode == 0)
                             {
-                                CDTXMania.listTargetGhostScoreData[ i ].dbPerformanceSkill = CScoreIni.tCalculatePlayingSkillOld( nTotal, CDTXMania.listTargetGhostScoreData[ i ].nPerfectCount, CDTXMania.listTargetGhostScoreData[ i ].nGreatCount, CDTXMania.listTargetGhostScoreData[ i ].nGoodCount, CDTXMania.listTargetGhostScoreData[ i ].nPoorCount, CDTXMania.listTargetGhostScoreData[ i ].nMissCount, CDTXMania.listTargetGhostScoreData[i].nMaxCombo, (EInstrumentPart)i, CDTXMania.listTargetGhostScoreData[ i ].bAutoPlay );
+                                CDTXMania.listTargetGhostScoreData[i].dbPerformanceSkill = CScoreIni.tCalculatePlayingSkillOld(nTotal, CDTXMania.listTargetGhostScoreData[i].nPerfectCount, CDTXMania.listTargetGhostScoreData[i].nGreatCount, CDTXMania.listTargetGhostScoreData[i].nGoodCount, CDTXMania.listTargetGhostScoreData[i].nPoorCount, CDTXMania.listTargetGhostScoreData[i].nMissCount, CDTXMania.listTargetGhostScoreData[i].nMaxCombo, (EInstrumentPart)i, CDTXMania.listTargetGhostScoreData[i].bAutoPlay);
                             }
                             else
                             {
-                                CDTXMania.listTargetGhostScoreData[ i ].dbPerformanceSkill = CScoreIni.tCalculatePlayingSkill( nTotal, CDTXMania.listTargetGhostScoreData[ i ].nPerfectCount, CDTXMania.listTargetGhostScoreData[ i ].nGreatCount, CDTXMania.listTargetGhostScoreData[ i ].nGoodCount, CDTXMania.listTargetGhostScoreData[ i ].nPoorCount, CDTXMania.listTargetGhostScoreData[ i ].nMissCount, CDTXMania.listTargetGhostScoreData[ i ].nMaxCombo, (EInstrumentPart)i, CDTXMania.listTargetGhostScoreData[ i ].bAutoPlay );
+                                CDTXMania.listTargetGhostScoreData[i].dbPerformanceSkill = CScoreIni.tCalculatePlayingSkill(nTotal, CDTXMania.listTargetGhostScoreData[i].nPerfectCount, CDTXMania.listTargetGhostScoreData[i].nGreatCount, CDTXMania.listTargetGhostScoreData[i].nGoodCount, CDTXMania.listTargetGhostScoreData[i].nPoorCount, CDTXMania.listTargetGhostScoreData[i].nMissCount, CDTXMania.listTargetGhostScoreData[i].nMaxCombo, (EInstrumentPart)i, CDTXMania.listTargetGhostScoreData[i].bAutoPlay);
                             }
                         }
 
@@ -834,9 +841,9 @@ namespace DTXMania
         protected bool tHandleKeyInput()
         {
             IInputDevice keyboard = CDTXMania.InputManager.Keyboard;
-            if ( keyboard.bKeyPressed( (int)SlimDXKey.Escape ) )		// escape (exit)
+            if (keyboard.bKeyPressed((int)SlimDXKey.Escape))		// escape (exit)
             {
-                if ( CDTXMania.ConfigIni.bGuitarRevolutionMode )
+                if (CDTXMania.ConfigIni.bGuitarRevolutionMode)
                 {
                     if (CDTXMania.stagePerfGuitarScreen.bActivated == true)
                         CDTXMania.stagePerfGuitarScreen.OnDeactivate();
@@ -892,10 +899,10 @@ namespace DTXMania
         private CTexture txArtist;
         private CTexture txJacket;
         private CTexture txBackground;
-        private CTexture txBackground2;
+        private CTexture txBackcaution;
+        private CTexture txBackcaution2;
         private CTexture txDifficultyPanel;
         private CTexture txPartPanel;
-
         private CPrivateFastFont pfタイトル;
         private CPrivateFastFont pfアーティスト;
 
@@ -905,7 +912,6 @@ namespace DTXMania
         //private Color clGITADORAgradationBottomColor = Color.FromArgb(255, 250, 40);
         private Color clGITADORAgradationTopColor = Color.FromArgb(255, 255, 255);
         private Color clGITADORAgradationBottomColor = Color.FromArgb(255, 255, 255);
-
         private DateTime timeBeginLoad;
         private DateTime timeBeginLoadWAV;
         private int nWAVcount;
@@ -928,14 +934,14 @@ namespace DTXMania
             public int index;
             public int nJudgeTime;
             public int nLagTime;
-            public STGhostLag( int index, int nJudgeTime, int nLagTime )
+            public STGhostLag(int index, int nJudgeTime, int nLagTime)
             {
                 this.index = index;
                 this.nJudgeTime = nJudgeTime;
                 this.nLagTime = nLagTime;
             }
         }
-        protected EJudgement e指定時刻からChipのJUDGEを返す( long nTime, int nInputAdjustTime, EInstrumentPart part )
+        protected EJudgement e指定時刻からChipのJUDGEを返す(long nTime, int nInputAdjustTime, EInstrumentPart part)
         {
             int nDeltaTimeMs = Math.Abs((int)nTime + nInputAdjustTime);
             switch (part)
@@ -953,26 +959,26 @@ namespace DTXMania
             }
         }
         //-----------------
-        private void ReadGhost( string filename, List<int> list ) // #35411 2015.08.19 chnmr0 add
+        private void ReadGhost(string filename, List<int> list) // #35411 2015.08.19 chnmr0 add
         {
             //return; //2015.12.31 kairera0467 以下封印
 
-            if( File.Exists( filename ) )
+            if (File.Exists(filename))
             {
-                using( FileStream fs = new FileStream( filename, FileMode.Open, FileAccess.Read ) )
+                using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
                 {
-                    using( BinaryReader br = new BinaryReader( fs ) )
+                    using (BinaryReader br = new BinaryReader(fs))
                     {
                         try
                         {
                             int cnt = br.ReadInt32();
-                            for( int i = 0; i < cnt; ++i )
+                            for (int i = 0; i < cnt; ++i)
                             {
                                 short lag = br.ReadInt16();
-                                list.Add( lag );
+                                list.Add(lag);
                             }
                         }
-                        catch( EndOfStreamException )
+                        catch (EndOfStreamException)
                         {
                             Trace.TraceInformation("ゴーストデータは正しく読み込まれませんでした。");
                             list.Clear();
@@ -981,65 +987,65 @@ namespace DTXMania
                 }
             }
 
-            if( File.Exists( filename + ".score" ) )
+            if (File.Exists(filename + ".score"))
             {
-                using( FileStream fs = new FileStream( filename + ".score", FileMode.Open, FileAccess.Read ) )
+                using (FileStream fs = new FileStream(filename + ".score", FileMode.Open, FileAccess.Read))
                 {
-                    using( StreamReader sr = new StreamReader( fs ) )
+                    using (StreamReader sr = new StreamReader(fs))
                     {
                         try
                         {
                             string strScoreDataFile = sr.ReadToEnd();
 
-                            strScoreDataFile = strScoreDataFile.Replace( Environment.NewLine, "\n" );
+                            strScoreDataFile = strScoreDataFile.Replace(Environment.NewLine, "\n");
                             string[] delimiter = { "\n" };
-                            string[] strSingleLine = strScoreDataFile.Split( delimiter, StringSplitOptions.RemoveEmptyEntries );
+                            string[] strSingleLine = strScoreDataFile.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
 
-                            for( int i = 0; i < strSingleLine.Length; i++ )
+                            for (int i = 0; i < strSingleLine.Length; i++)
                             {
-                                string[] strA = strSingleLine[ i ].Split( '=' );
+                                string[] strA = strSingleLine[i].Split('=');
                                 if (strA.Length != 2)
                                     continue;
 
-                                switch( strA[ 0 ] )
+                                switch (strA[0])
                                 {
                                     case "Score":
-                                        CDTXMania.listTargetGhostScoreData[ (int)this.nCurrentInst ].nスコア = Convert.ToInt32( strA[ 1 ] );
+                                        CDTXMania.listTargetGhostScoreData[(int)this.nCurrentInst].nスコア = Convert.ToInt32(strA[1]);
                                         continue;
                                     case "PlaySkill":
-                                        CDTXMania.listTargetGhostScoreData[ (int)this.nCurrentInst ].dbPerformanceSkill = Convert.ToDouble( strA[ 1 ] );
+                                        CDTXMania.listTargetGhostScoreData[(int)this.nCurrentInst].dbPerformanceSkill = Convert.ToDouble(strA[1]);
                                         continue;
                                     case "Skill":
-                                        CDTXMania.listTargetGhostScoreData[ (int)this.nCurrentInst ].dbGameSkill = Convert.ToDouble( strA[ 1 ] );
+                                        CDTXMania.listTargetGhostScoreData[(int)this.nCurrentInst].dbGameSkill = Convert.ToDouble(strA[1]);
                                         continue;
                                     case "Perfect":
-                                        CDTXMania.listTargetGhostScoreData[ (int)this.nCurrentInst ].nPerfectCount_ExclAuto = Convert.ToInt32( strA[ 1 ] );
+                                        CDTXMania.listTargetGhostScoreData[(int)this.nCurrentInst].nPerfectCount_ExclAuto = Convert.ToInt32(strA[1]);
                                         continue;
                                     case "Great":
-                                        CDTXMania.listTargetGhostScoreData[ (int)this.nCurrentInst ].nGreatCount_ExclAuto = Convert.ToInt32( strA[ 1 ] );
+                                        CDTXMania.listTargetGhostScoreData[(int)this.nCurrentInst].nGreatCount_ExclAuto = Convert.ToInt32(strA[1]);
                                         continue;
                                     case "Good":
-                                        CDTXMania.listTargetGhostScoreData[ (int)this.nCurrentInst ].nGoodCount_ExclAuto = Convert.ToInt32( strA[ 1 ] );
+                                        CDTXMania.listTargetGhostScoreData[(int)this.nCurrentInst].nGoodCount_ExclAuto = Convert.ToInt32(strA[1]);
                                         continue;
                                     case "Poor":
-                                        CDTXMania.listTargetGhostScoreData[ (int)this.nCurrentInst ].nPoorCount_ExclAuto = Convert.ToInt32( strA[ 1 ] );
+                                        CDTXMania.listTargetGhostScoreData[(int)this.nCurrentInst].nPoorCount_ExclAuto = Convert.ToInt32(strA[1]);
                                         continue;
                                     case "Miss":
-                                        CDTXMania.listTargetGhostScoreData[ (int)this.nCurrentInst ].nMissCount_ExclAuto = Convert.ToInt32( strA[ 1 ] );
+                                        CDTXMania.listTargetGhostScoreData[(int)this.nCurrentInst].nMissCount_ExclAuto = Convert.ToInt32(strA[1]);
                                         continue;
                                     case "MaxCombo":
-                                        CDTXMania.listTargetGhostScoreData[ (int)this.nCurrentInst ].nMaxCombo = Convert.ToInt32( strA[ 1 ] );
+                                        CDTXMania.listTargetGhostScoreData[(int)this.nCurrentInst].nMaxCombo = Convert.ToInt32(strA[1]);
                                         continue;
                                     default:
                                         continue;
                                 }
                             }
                         }
-                        catch( NullReferenceException )
+                        catch (NullReferenceException)
                         {
                             Trace.TraceInformation("ゴーストデータの記録が正しく読み込まれませんでした。");
                         }
-                        catch( EndOfStreamException )
+                        catch (EndOfStreamException)
                         {
                             Trace.TraceInformation("ゴーストデータの記録が正しく読み込まれませんでした。");
                         }
@@ -1048,7 +1054,7 @@ namespace DTXMania
             }
             else
             {
-                CDTXMania.listTargetGhostScoreData[ (int)this.nCurrentInst ] = null;
+                CDTXMania.listTargetGhostScoreData[(int)this.nCurrentInst] = null;
             }
         }
         private void tDrawStringSmall(int x, int y, string str)
@@ -1109,22 +1115,22 @@ namespace DTXMania
                 }
             }
         }
-        private void tDrawDifficultyPanel( string strラベル名, int nX, int nY )
+        private void tDrawDifficultyPanel(string strラベル名, int nX, int nY)
         {
             string strRawScriptFile;
 
-            Rectangle rect = new Rectangle( 0, 0, 292, 175 );
+            Rectangle rect = new Rectangle(0, 0, 292, 175);
 
             //ファイルの存在チェック
-            if ( File.Exists( CSkin.Path( @"Script\difficult.dtxs" ) ) )
+            if (File.Exists(CSkin.Path(@"Script\difficult.dtxs")))
             {
                 //スクリプトを開く
-                StreamReader reader = new StreamReader( CSkin.Path( @"Script\difficult.dtxs" ), Encoding.GetEncoding("Shift_JIS") );
+                StreamReader reader = new StreamReader(CSkin.Path(@"Script\difficult.dtxs"), Encoding.GetEncoding("Shift_JIS"));
                 strRawScriptFile = reader.ReadToEnd();
 
-                strRawScriptFile = strRawScriptFile.Replace( Environment.NewLine, "\n" );
+                strRawScriptFile = strRawScriptFile.Replace(Environment.NewLine, "\n");
                 string[] delimiter = { "\n" };
-                string[] strSingleLine = strRawScriptFile.Split( delimiter, StringSplitOptions.RemoveEmptyEntries );
+                string[] strSingleLine = strRawScriptFile.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
 
                 for (int i = 0; i < strSingleLine.Length; i++)
                 {

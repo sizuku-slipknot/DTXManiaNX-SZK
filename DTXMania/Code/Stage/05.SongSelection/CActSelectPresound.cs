@@ -37,7 +37,6 @@ namespace DTXMania
 			}
 		}
 
-
 		// CActivity 実装
 
 		public override void OnActivate()
@@ -83,7 +82,6 @@ namespace DTXMania
 			}
 			return 0;
 		}
-
 
 		// Other
 

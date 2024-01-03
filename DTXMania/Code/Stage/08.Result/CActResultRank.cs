@@ -4,7 +4,6 @@ using System.Text;
 using System.Drawing;
 using SharpDX;
 using FDK;
-
 using Rectangle = System.Drawing.Rectangle;
 
 namespace DTXMania
@@ -18,7 +17,6 @@ namespace DTXMania
             base.bNotActivated = true;
         }
 
-
         // メソッド
 
         public void tアニメを完了させる()
@@ -26,21 +24,21 @@ namespace DTXMania
             this.ctランク表示.nCurrentValue = this.ctランク表示.n終了値;
         }
 
-
         // CActivity 実装
 
         public override void OnActivate()
         {
             #region [ 本体位置 ]
 
-            int n中X = 840;
-            int n中Y = 0;
+            int n中X = 97;
+            int n中X2 = 928;
+            int n中Y = 223;
 
-            int n左X = 300;
-            int n左Y = -15;
+            int n左X = -30;
+            int n左Y = 126;
 
-            int n右X = 720;
-            int n右Y = -15;
+            int n右X = 800;
+            int n右Y = 126;
 
             this.n本体X[0] = 0;
             this.n本体Y[0] = 0;
@@ -60,7 +58,7 @@ namespace DTXMania
             {
                 if (!CDTXMania.DTX.bチップがある.Bass)
                 {
-                    this.n本体X[1] = n中X;
+                    this.n本体X[1] = n中X2;
                     this.n本体Y[1] = n中Y;
                 }
                 else if (!CDTXMania.DTX.bチップがある.Guitar)
@@ -103,7 +101,6 @@ namespace DTXMania
         {
             if (!base.bNotActivated)
             {
-
                 this.txStageCleared = CDTXMania.tGenerateTexture(CSkin.Path(@"Graphics\ScreenResult StageCleared.png"));
                 this.txFullCombo = CDTXMania.tGenerateTexture(CSkin.Path(@"Graphics\ScreenResult fullcombo.png"));
                 this.txExcellent = CDTXMania.tGenerateTexture(CSkin.Path(@"Graphics\ScreenResult Excellent.png"));
@@ -146,7 +143,7 @@ namespace DTXMania
                         default:
                             this.txランク文字[j] = null;
                             break;
-                    }
+                            }
                 }
                 base.OnManagedCreateResources();
             }
@@ -218,7 +215,6 @@ namespace DTXMania
             }
             return 1;
         }
-
 
         // Other
 

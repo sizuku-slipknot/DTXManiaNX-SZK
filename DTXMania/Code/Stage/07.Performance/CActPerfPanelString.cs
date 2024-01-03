@@ -58,12 +58,12 @@ namespace DTXMania
             if (CDTXMania.ConfigIni.bDrumsEnabled)
             {
                 this.n曲名X = 962;
-                this.n曲名Y = 26;
+                this.n曲名Y = 29;
             }
             else if (CDTXMania.ConfigIni.bGuitarEnabled)
             {
                 this.n曲名X = 484;
-                this.n曲名Y = 656;
+                this.n曲名Y = 659;
             }
 
 //          this.n文字列の長さdot = 0;
@@ -201,7 +201,7 @@ namespace DTXMania
 
                 if (CDTXMania.ConfigIni.bGuitarEnabled)
                 {
-                    this.txジャケットパネル2.tDraw2D(CDTXMania.app.Device, 483, 569);
+                    this.txジャケットパネル2.tDraw2D(CDTXMania.app.Device, 483, 585);
                 }
 
                 if (this.txジャケット画像 != null)

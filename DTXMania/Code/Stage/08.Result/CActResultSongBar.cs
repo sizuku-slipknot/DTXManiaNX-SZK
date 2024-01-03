@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Diagnostics;
 using SharpDX;
 using FDK;
-
 using Rectangle = System.Drawing.Rectangle;
 
 namespace DTXMania
@@ -19,14 +18,12 @@ namespace DTXMania
 			base.bNotActivated = true;
 		}
 
-
 		// メソッド
 
 		public void tアニメを完了させる()
 		{
 			this.ct登場用.nCurrentValue = this.ct登場用.n終了値;
 		}
-
 
 		// CActivity 実装
 
@@ -145,7 +142,6 @@ namespace DTXMania
 			}
 			return 1;
 		}
-
 
 		// Other
 

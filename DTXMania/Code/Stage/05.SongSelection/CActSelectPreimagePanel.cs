@@ -7,7 +7,6 @@ using System.Diagnostics;
 using SharpDX;
 using SharpDX.Direct3D9;
 using FDK;
-
 using Rectangle = System.Drawing.Rectangle;
 
 namespace DTXMania

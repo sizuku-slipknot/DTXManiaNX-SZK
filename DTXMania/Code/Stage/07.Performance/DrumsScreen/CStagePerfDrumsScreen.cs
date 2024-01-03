@@ -75,7 +75,6 @@ namespace DTXMania
             bIsTrainingMode = base.bIsTrainingMode;
 		}
 
-
 		// CStage 実装
 
 		public override void OnActivate()
@@ -362,8 +361,6 @@ namespace DTXMania
                 this.tUpdateAndDraw_JudgementString2_ForPositionOnJudgementLine();
                 this.tUpdateAndDraw_ChipFireD();
                 this.tUpdateAndDraw_PlaySpeed();
-                //
-                
                 this.tUpdateAndDraw_STAGEFAILED();
                 bすべてのチップが判定された = true;
                 if (bIsFinishedFadeout)
@@ -452,8 +449,6 @@ namespace DTXMania
                     this.actCombo.nCurrentCombo.Drums = 0;
                     this.actCombo.nCurrentCombo.HighestValue.Drums = 0;
                     base.actScore.nCurrentTrueScore.Drums = 0;
-
-                    //
                     this.nTimingHitCount.Drums.nLate = 0;
                     this.nTimingHitCount.Drums.nEarly = 0;
                 }
@@ -467,26 +462,23 @@ namespace DTXMania
 			return 0;
 		}
 
+        // Other
 
-
-
-		// Other
-
-		#region [ private ]
-		//-----------------
+        #region [ private ]
+        //-----------------
+        public int nNumberOfMistakes;
+        public int nNumberPerfects;
         public bool bIsFinishedFadeout;
         public bool bIsFinishedPlaying;
         public bool bExc;
         public bool bFullCom;
         public bool bすべてのチップが判定された;
-        public int nNumberOfMistakes;
-        public int nNumberPerfects;
-		private CActPerfDrumsChipFireD actChipFireD;
-		public CActPerfDrumsPad actPad;
-		public bool bInFillIn;
+        public bool bInFillIn;
         public bool bEndFillIn;
         public bool bChorusSection;
         public bool bBonus;
+        public CActPerfDrumsPad actPad;
+        private CActPerfDrumsChipFireD actChipFireD;
 		private readonly EPad[] eChannelToPad = new EPad[12]
 		{
 			EPad.HH, EPad.SD, EPad.BD, EPad.HT,
@@ -529,7 +521,6 @@ namespace DTXMania
 
             this.actFOStageClear.tStartFadeOut();
         }
-
 		private bool bフィルイン区間の最後のChipである( CChip pChip )
 		{
 			if( pChip == null )
@@ -551,7 +542,6 @@ namespace DTXMania
 			}
 			return true;
 		}
-
 		protected override EJudgement tProcessChipHit( long nHitTime, CChip pChip, bool bCorrectLane )
 		{
 			EJudgement eJudgeResult = tProcessChipHit( nHitTime, pChip, EInstrumentPart.DRUMS, bCorrectLane );
@@ -588,7 +578,6 @@ namespace DTXMania
 		{
 			this.tチップのヒット処理_BadならびにTight時のMiss( part, nLane, EInstrumentPart.DRUMS );
 		}
-
         protected override void tJudgeLineMovingUpandDown()
         {
             this.actJudgeString.iP_A = (CDTXMania.ConfigIni.bReverse.Drums ? base.nJudgeLinePosY.Drums : base.nJudgeLinePosY.Drums - 189);
@@ -596,7 +585,6 @@ namespace DTXMania
             this.actChipFireD.iPosY = (CDTXMania.ConfigIni.bReverse.Drums ? base.nJudgeLinePosY.Drums - 183 : base.nJudgeLinePosY.Drums - 186);
             CDTXMania.stagePerfDrumsScreen.actPlayInfo.jl = (CDTXMania.ConfigIni.bReverse.Drums ? 0 : CStagePerfCommonScreen.nJudgeLineMaxPosY - base.nJudgeLinePosY.Drums);
         }
-
 		private bool tProcessDrumHit( long nHitTime, EPad type, CChip pChip, int n強弱度合い0to127)  // tドラムヒット処理
         {
 			if( pChip == null )
@@ -784,7 +772,6 @@ namespace DTXMania
 			}
 		}
          */
-
         private void tUpdateAndDraw_Graph()  // t進行描画_グラフ
         {
             if( CDTXMania.ConfigIni.bGraph有効.Drums )
@@ -1846,12 +1833,12 @@ namespace DTXMania
                                 CChip chipLC = this.r指定時刻に一番近い未ヒットChip(nTime, 0x1a, nInputAdjustTime);	// LC
                                 CChip chipCY = CDTXMania.ConfigIni.bシンバルフリー ? this.r指定時刻に一番近い未ヒットChip(nTime, 0x16, nInputAdjustTime) : null;
                                 CChip chipRD = CDTXMania.ConfigIni.bシンバルフリー ? this.r指定時刻に一番近い未ヒットChip(nTime, 0x19, nInputAdjustTime) : null;
+                                CChip[] chipArray = new CChip[] { chipHC, chipHO, chipLC, chipCY, chipRD };
                                 EJudgement e判定HC = (chipHC != null) ? this.e指定時刻からChipのJUDGEを返す(nTime, chipHC, nInputAdjustTime) : EJudgement.Miss;
                                 EJudgement e判定HO = (chipHO != null) ? this.e指定時刻からChipのJUDGEを返す(nTime, chipHO, nInputAdjustTime) : EJudgement.Miss;
                                 EJudgement e判定LC = (chipLC != null) ? this.e指定時刻からChipのJUDGEを返す(nTime, chipLC, nInputAdjustTime) : EJudgement.Miss;
                                 EJudgement e判定CY = (chipCY != null) ? this.e指定時刻からChipのJUDGEを返す(nTime, chipCY, nInputAdjustTime) : EJudgement.Miss;
                                 EJudgement e判定RD = (chipRD != null) ? this.e指定時刻からChipのJUDGEを返す(nTime, chipRD, nInputAdjustTime) : EJudgement.Miss;
-                                CChip[] chipArray = new CChip[] { chipHC, chipHO, chipLC, chipCY, chipRD };
                                 EJudgement[] e判定Array = new EJudgement[] { e判定HC, e判定HO, e判定LC, e判定CY, e判定RD };
                                 const int NumOfChips = 5;	// chipArray.GetLength(0)
                                 SortChipsByNTime(chipArray, e判定Array, NumOfChips);
@@ -2816,7 +2803,6 @@ namespace DTXMania
 				//num8++;
 			}
 		}
-
 		protected override void tGenerateBackgroundTexture()
 		{
             Rectangle bgrect = new Rectangle(980, 0, 0, 0);
@@ -2824,7 +2810,7 @@ namespace DTXMania
             {
                 bgrect = new Rectangle(980, 0, 278, 355);
             }
-			string DefaultBgFilename = @"Graphics\7_background.jpg";
+			string DefaultBgFilename = @"Graphics\background.png";
 			string BgFilename = "";
 			if ( ( ( CDTXMania.DTX.BACKGROUND != null ) && ( CDTXMania.DTX.BACKGROUND.Length > 0 ) ) && !CDTXMania.ConfigIni.bストイックモード )
 			{
@@ -2832,7 +2818,6 @@ namespace DTXMania
 			}
 			base.tGenerateBackgroundTexture( DefaultBgFilename, bgrect, BgFilename );
 		}
-
         protected override void tUpdateAndDraw_Chip_PatternOnly_Drums(CConfigIni configIni, ref CDTX dTX, ref CChip pChip)  // t進行描画_チップ_模様のみ_ドラムス
         {
             if (configIni.bDrumsEnabled)
@@ -3471,7 +3456,6 @@ namespace DTXMania
                                 this.n最大コンボ数_TargetGhost.Drums,
                                 EInstrumentPart.DRUMS, new STAUTOPLAY());
                         }
-
                     }
                     if (val < 0) val = 0;
                     if (val > 100) val = 100;
@@ -3647,11 +3631,8 @@ namespace DTXMania
 				}
 			}
 		}
-
-        
         protected override void tUpdateAndDraw_Chip_Bonus(CConfigIni configIni, ref CDTX dTX, ref CChip pChip)  // t進行描画_チップ_ボーナス
         {
-
         }
         
         public void tProcessChipHit_BonusChip( CConfigIni configIni, CDTX dTX, CChip pChip)  // tボーナスチップのヒット処理
@@ -3757,8 +3738,6 @@ namespace DTXMania
                 if( CDTXMania.ConfigIni.nSkillMode == 1 && ( !CDTXMania.ConfigIni.bAllDrumsAreAutoPlay || CDTXMania.ConfigIni.bAutoAddGage ) )
                     this.actScore.Add( EInstrumentPart.DRUMS, bIsAutoPlay, 500L );
             }
-
-
         }
 
         /*
@@ -3849,7 +3828,6 @@ namespace DTXMania
                     return;
                 }
             }
-
         }
 		protected override void tUpdateAndDraw_Chip_BarLine( CConfigIni configIni, ref CDTX dTX, ref CChip pChip )
 		{

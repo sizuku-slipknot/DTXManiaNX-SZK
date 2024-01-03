@@ -14,7 +14,6 @@ namespace DTXMania
 		public int nCurrentValue;
 		public bool b値がフォーカスされている;
 
-
 		// コンストラクタ
 
 		public CItemInteger()
@@ -54,7 +53,6 @@ namespace DTXMania
 			this.t初期化(str項目名, n最小値, n最大値, n初期値, eパネル種別, str説明文jp, str説明文en);
 		}
 
-
 		// CItemBase 実装
 
 		public override void tEnter押下()
@@ -85,7 +83,6 @@ namespace DTXMania
 		public void t初期化(string str項目名, int n最小値, int n最大値, int n初期値, string str説明文jp, string str説明文en) {
 			this.t初期化(str項目名, n最小値, n最大値, n初期値, CItemBase.EPanelType.Normal, str説明文jp, str説明文en);
 		}
-
 	
 		public void t初期化( string str項目名, int n最小値, int n最大値, int n初期値, CItemBase.EPanelType eパネル種別 )
 		{

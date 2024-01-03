@@ -123,7 +123,7 @@ namespace DTXMania
 			base.listChildActivities.Add( this.actInformation = new CActSelectInformation() );
 			base.listChildActivities.Add( this.actSortSongs = new CActSortSongs() );
 			base.listChildActivities.Add( this.actShowCurrentPosition = new CActSelectShowCurrentPosition() );
-			base.listChildActivities.Add(this.actBackgroundVideoAVI = new CActSelectBackgroundAVI());
+			base.listChildActivities.Add( this.actBackgroundVideoAVI = new CActSelectBackgroundAVI());
 			base.listChildActivities.Add( this.actQuickConfig = new CActSelectQuickConfig() );
 
 			//
@@ -273,7 +273,7 @@ namespace DTXMania
 		{
 			if( !base.bNotActivated )
 			{
-				this.txBackground = CDTXMania.tGenerateTexture( CSkin.Path( @"Graphics\5_background.jpg" ), false );
+				this.txBackground = CDTXMania.tGenerateTexture( CSkin.Path( @"Graphics\background.png" ), false );
 				this.txTopPanel = CDTXMania.tGenerateTexture( CSkin.Path( @"Graphics\5_header panel.png" ), false );
 				this.txBottomPanel = CDTXMania.tGenerateTexture( CSkin.Path( @"Graphics\5_footer panel.png" ), false );
 				this.prvFontSearchInputNotification = new CPrivateFastFont(new FontFamily(CDTXMania.ConfigIni.str選曲リストフォント), 14, FontStyle.Regular);

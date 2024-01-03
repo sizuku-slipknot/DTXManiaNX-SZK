@@ -6,7 +6,6 @@ using System.Diagnostics;
 using FDK;
 using SharpDX.Direct3D9;
 using DirectShowLib;
-
 using SlimDXKey = SlimDX.DirectInput.Key;
 
 namespace DTXMania
@@ -58,7 +57,6 @@ namespace DTXMania
 			base.listChildActivities.Add( this.actFO = new CActFIFOBlack() );
 			base.listChildActivities.Add(this.actBackgroundVideoAVI = new CActSelectBackgroundAVI());
 		}
-
 		
 		// CStage 実装
 
@@ -454,7 +452,7 @@ namespace DTXMania
 				}
 
 				//this.ds背景動画 = CDTXMania.t失敗してもスキップ可能なDirectShowを生成する(CSkin.Path(@"Graphics\8_background.mp4"), CDTXMania.app.WindowHandle, true);
-				this.txBackground = CDTXMania.tGenerateTexture( CSkin.Path( @"Graphics\8_background.jpg" ) );
+				this.txBackground = CDTXMania.tGenerateTexture( CSkin.Path( @"Graphics\background_Result.png" ) );
                 switch (CDTXMania.stageResult.n総合ランク値)
                 {
                     case 0:
@@ -590,7 +588,6 @@ namespace DTXMania
 					base.ePhaseID = CStage.EPhase.Common_FadeIn;
 					base.bJustStartedUpdate = false;
 				}
-
 				
 				//Draw Background video  via CActPerfAVI methods
 				this.actBackgroundVideoAVI.tUpdateAndDraw();
@@ -812,7 +809,6 @@ namespace DTXMania
 			Continue,
 			Complete
 		}
-
 
 		// Other
 

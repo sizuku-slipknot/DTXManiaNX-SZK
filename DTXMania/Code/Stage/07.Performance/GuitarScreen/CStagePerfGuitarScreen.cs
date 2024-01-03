@@ -316,11 +316,9 @@ namespace DTXMania
 						this.nHitCount_ExclAuto[inst].Miss = 0;
 						this.actCombo.nCurrentCombo[inst] = 0;
 						this.actCombo.nCurrentCombo.HighestValue[inst] = 0;
-						base.actScore.nCurrentTrueScore[inst] = 0;
-
-						//
 						this.nTimingHitCount[inst].nLate = 0;
 						this.nTimingHitCount[inst].nEarly = 0;
+						base.actScore.nCurrentTrueScore[inst] = 0;
 					}
 				}
 
@@ -490,7 +488,6 @@ namespace DTXMania
 		protected override void tJudgeLineMovingUpandDown()
         {
         }
-
 		protected override void ScrollSpeedUp()
 		{
             CDTXMania.ConfigIni.nScrollSpeed.Guitar = Math.Min(CDTXMania.ConfigIni.nScrollSpeed.Guitar + 1, 1999);
@@ -504,11 +501,10 @@ namespace DTXMania
 		{
 			// ギタレボモードでは何もしない
 		}
-
 		protected override void tGenerateBackgroundTexture()
 		{
 			Rectangle bgrect = new Rectangle( 0, 0, 1280, 720 );
-			string DefaultBgFilename = @"Graphics\7_background_Guitar.jpg";
+			string DefaultBgFilename = @"Graphics\background.png";
 			string BgFilename = "";
 			string BACKGROUND = null;
 			if ( ( CDTXMania.DTX.BACKGROUND_GR != null ) && ( CDTXMania.DTX.BACKGROUND_GR.Length > 0 ) )

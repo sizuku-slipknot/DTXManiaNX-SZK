@@ -27,7 +27,6 @@ namespace DTXMania
 			}
 		}
 
-
 		// コンストラクタ
 
 		internal CPad( CConfigIni configIni, CInputManager mgrInput )
@@ -36,7 +35,6 @@ namespace DTXMania
 			this.rInput管理 = mgrInput;
 			this.stDetectedDevice.Clear();
 		}
-
 
 		// メソッド
 

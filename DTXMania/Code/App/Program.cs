@@ -7,7 +7,6 @@ using System.Threading;
 using System.Diagnostics;
 using System.Windows.Forms;
 using FDK;
-
 using System.IO;
 
 namespace DTXMania

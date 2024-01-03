@@ -39,7 +39,7 @@ namespace DTXMania
 
 
 		// コンストラクタ
-
+		/*
 		public CDTXVersion()
 		{
 			this.n整数部 = 0;
@@ -52,6 +52,7 @@ namespace DTXMania
 			this.n小数部 = 0;
 			this.Unknown = false;
 		}
+		*/
 		public CDTXVersion( string Version )
 		{
 			this.n整数部 = 0;
@@ -111,6 +112,7 @@ namespace DTXMania
 				}
 			}
 		}
+		
 		public CDTXVersion( int n整数部, int n小数部 )
 		{
 			this.n整数部 = n整数部;
@@ -118,7 +120,6 @@ namespace DTXMania
 			this.Unknown = false;
 		}
 
-	
 		// メソッド
 		
 		public string toString()
@@ -143,10 +144,9 @@ namespace DTXMania
 				result.Append( n日付.ToString( "000000" ) );
 				result.Append( ')' );
 			}
-
 			return result.ToString();
 		}
-
+		
 		public static bool operator ==( CDTXVersion x, CDTXVersion y )
 		{
 			return ( ( ( x.n整数部 == y.n整数部 ) && ( x.n小数部 == y.n小数部 ) ) && ( x.Unknown == y.Unknown ) );
@@ -197,7 +197,7 @@ namespace DTXMania
 			string v = this.toString();
 			return v.GetHashCode();
 		}
-
+		
 		// Other
 
 		#region [ private ]

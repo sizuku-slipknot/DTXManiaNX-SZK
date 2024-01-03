@@ -9,7 +9,6 @@ namespace DTXMania
 	internal class CCharacterConsole : CActivity
 	{
 		// 定数
-
 		public enum EFontType  // Eフォント種別
 		{
 			White,     // 白
@@ -25,7 +24,6 @@ namespace DTXMania
 			中央,
 			右詰
 		}
-
 
 		// メソッド
 

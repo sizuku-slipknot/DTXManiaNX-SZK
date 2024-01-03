@@ -70,7 +70,6 @@ namespace DTXMania
 			}
 		}
         
-        
         public override void OnManagedReleaseResources()
         {
             if (this.bNotActivated)
@@ -114,8 +113,6 @@ namespace DTXMania
 			//-----------------
 			#endregion
 
-			
-
 			#region [ 背景動画 ]
 			//-----------------
 			if( this.ds背景動画 != null &&
@@ -148,8 +145,6 @@ namespace DTXMania
             }
             return 1;
         }
-        
-
 
 		// Other
 
