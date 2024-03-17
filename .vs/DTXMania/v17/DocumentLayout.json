@@ -3,7 +3,7 @@
   "WorkspaceRootPath": "J:\\Users\\minamo\\Desktop\\\u30BD\u30FC\u30B9\\DTXmaniaNX-1.4.0\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{81BEC512-8074-4BD1-8A3C-AC73BC7BF846}|DTXMania\\DTXMania.csproj|J:\\Users\\minamo\\Desktop\\\u30BD\u30FC\u30B9\\DTXmaniaNX-1.4.0\\dtxmania\\code\\stage\\08.result\\cactresultparameterpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{81BEC512-8074-4BD1-8A3C-AC73BC7BF846}|DTXMania\\DTXMania.csproj|j:\\users\\minamo\\desktop\\\u30BD\u30FC\u30B9\\dtxmanianx-1.4.0\\dtxmania\\code\\stage\\08.result\\cactresultparameterpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{81BEC512-8074-4BD1-8A3C-AC73BC7BF846}|DTXMania\\DTXMania.csproj|solutionrelative:dtxmania\\code\\stage\\08.result\\cactresultparameterpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -19,7 +19,7 @@
       "RelativeMoniker": "D:0:0:{81BEC512-8074-4BD1-8A3C-AC73BC7BF846}|DTXMania\\DTXMania.csproj|solutionrelative:dtxmania\\code\\stage\\07.performance\\guitarscreen\\cactperfguitarstatuspanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{81BEC512-8074-4BD1-8A3C-AC73BC7BF846}|DTXMania\\DTXMania.csproj|j:\\users\\minamo\\desktop\\\u30BD\u30FC\u30B9\\dtxmanianx-1.4.0\\dtxmania\\code\\stage\\02.title\\cstagetitle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{81BEC512-8074-4BD1-8A3C-AC73BC7BF846}|DTXMania\\DTXMania.csproj|J:\\Users\\minamo\\Desktop\\\u30BD\u30FC\u30B9\\DTXmaniaNX-1.4.0\\dtxmania\\code\\stage\\02.title\\cstagetitle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{81BEC512-8074-4BD1-8A3C-AC73BC7BF846}|DTXMania\\DTXMania.csproj|solutionrelative:dtxmania\\code\\stage\\02.title\\cstagetitle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -70,8 +70,7 @@
               "RelativeToolTip": "DTXMania\\Code\\Stage\\02.Title\\CStageTitle.cs",
               "ViewState": "AQIAAAYAAAAAAAAAAAAAABsAAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-17T11:33:57.378Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-17T11:33:57.378Z"
             },
             {
               "$type": "Document",
@@ -83,8 +82,7 @@
               "RelativeToolTip": "DTXMania\\Code\\App\\CDTXMania.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAABAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-17T11:32:45.281Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-17T11:32:45.281Z"
             },
             {
               "$type": "Document",
@@ -96,8 +94,7 @@
               "RelativeToolTip": "DTXMania\\Code\\Score,Song\\CChip.cs",
               "ViewState": "AQIAAF4BAAAAAAAAAAASwGkBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-17T11:26:21.405Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-17T11:26:21.405Z"
             },
             {
               "$type": "Document",
@@ -109,8 +106,7 @@
               "RelativeToolTip": "DTXMania\\Code\\Stage\\08.Result\\CActResultRank.cs",
               "ViewState": "AQIAAI8AAAAAAAAAAAAYwC0AAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-17T10:29:44.018Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-17T10:29:44.018Z"
             },
             {
               "$type": "Document",
@@ -122,8 +118,7 @@
               "RelativeToolTip": "DTXMania\\Code\\Stage\\06.SongLoading\\CStageSongLoading.cs",
               "ViewState": "AQIAAMkBAAAAAAAAAAAAAOIBAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-17T09:35:47.245Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-17T09:35:47.245Z"
             },
             {
               "$type": "Document",
@@ -135,8 +130,7 @@
               "RelativeToolTip": "DTXMania\\Code\\Stage\\07.Performance\\GuitarScreen\\CActPerfGuitarStatusPanel.cs",
               "ViewState": "AQIAAHsBAAAAAAAAAAAAAKsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-17T01:49:32.689Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-17T01:49:32.689Z"
             },
             {
               "$type": "Document",
@@ -148,8 +142,7 @@
               "RelativeToolTip": "DTXMania\\Code\\Stage\\08.Result\\CActResultImage.cs",
               "ViewState": "AQIAAKUAAAAAAAAAAAAAALIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-08T18:04:43.399Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-08T18:04:43.399Z"
             },
             {
               "$type": "Document",
@@ -161,8 +154,7 @@
               "RelativeToolTip": "DTXMania\\Code\\Stage\\08.Result\\CStageResult.cs",
               "ViewState": "AQIAACEDAAAAAAAAAADwv0kDAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-06T13:16:00.642Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-06T13:16:00.642Z"
             },
             {
               "$type": "Document",
